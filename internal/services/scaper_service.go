@@ -38,10 +38,43 @@ func GetSiteDataByURL(url string) (*models.SiteData, error) {
 	})
 
 	// Heading count
-	siteData.HEADING_LEVELS = CountHeadings(c)
+	headingCount := map[string]int{
+		"h1": 0,
+		"h2": 0,
+		"h3": 0,
+		"h4": 0,
+		"h5": 0,
+		"h6": 0,
+	}
+
+	c.OnHTML("h1", func(e *colly.HTMLElement) {
+		headingCount["h1"]++
+	})
+
+	c.OnHTML("h2", func(e *colly.HTMLElement) {
+		headingCount["h2"]++
+	})
+
+	c.OnHTML("h3", func(e *colly.HTMLElement) {
+		headingCount["h3"]++
+	})
+
+	c.OnHTML("h4", func(e *colly.HTMLElement) {
+		headingCount["h4"]++
+	})
+
+	c.OnHTML("h5", func(e *colly.HTMLElement) {
+		headingCount["h5"]++
+	})
+
+	c.OnHTML("h6", func(e *colly.HTMLElement) {
+		headingCount["h6"]++
+	})
+
+	siteData.HEADING_LEVELS = headingCount
 
 	// Check login form
-	siteData.HAVE_LOGIN_FORM = ContainsLoginForm(c)
+	siteData.HAVE_LOGIN_FORM = ContainsLoginForm(url)
 
 	// check links
 	internal, external, inaccessible := CountPageLinks(url)
@@ -112,57 +145,23 @@ func DetectHTMLVersion(htmlContent string) string {
 
 }
 
-// calculate heading levels
-func CountHeadings(c *colly.Collector) map[string]int {
-
-	headingCount := map[string]int{
-		"h1": 0,
-		"h2": 0,
-		"h3": 0,
-		"h4": 0,
-		"h5": 0,
-		"h6": 0,
-	}
-
-	c.OnHTML("h1", func(e *colly.HTMLElement) {
-		headingCount["h1"]++
-	})
-
-	c.OnHTML("h2", func(e *colly.HTMLElement) {
-		headingCount["h2"]++
-	})
-
-	c.OnHTML("h3", func(e *colly.HTMLElement) {
-		headingCount["h3"]++
-	})
-
-	c.OnHTML("h4", func(e *colly.HTMLElement) {
-		headingCount["h4"]++
-	})
-
-	c.OnHTML("h5", func(e *colly.HTMLElement) {
-		headingCount["h5"]++
-	})
-
-	c.OnHTML("h6", func(e *colly.HTMLElement) {
-		headingCount["h6"]++
-	})
-
-	return headingCount
-}
-
 // check if login form found
-func ContainsLoginForm(c *colly.Collector) bool {
-
+func ContainsLoginForm(siteURL string) bool {
+	
 	loginFormFound := false
 
+	var wg sync.WaitGroup
+	c := colly.NewCollector()
+
+	wg.Add(1)
 	c.OnHTML("form", func(e *colly.HTMLElement) {
+		defer wg.Done()
 
 		// check input field names
 		e.ForEach("input", func(i int, el *colly.HTMLElement) {
-
-			inputName := el.Attr("name")
 			
+			inputName := el.Attr("name")
+
 			if strings.Contains(inputName, "user") || strings.Contains(inputName, "name") || 
 				strings.Contains(inputName, "pass") || strings.Contains(inputName, "login") ||
 				strings.Contains(inputName, "email") {
@@ -187,6 +186,10 @@ func ContainsLoginForm(c *colly.Collector) bool {
 		}
 
 	})
+
+	c.Visit(siteURL)
+
+	wg.Wait()
 
 	return loginFormFound
 }
