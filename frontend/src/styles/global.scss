@@ -1,0 +1,37 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+a {
+  font-family: 'Poppins', sans-serif;
+}
+
+.input-box-label {
+  font-weight: 500;
+  font-size: 14px;
+  color: Black;
+  line-height: 21px;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.input-box {
+  height: 53px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.submit-button {
+  font-family: 'Poppins', sans-serif;
+}
+
+.sub-text {
+  color: gray;
+  margin: 0;
+}
+
+.right-sidebar {
+  height: 100vh;
+  overflow: auto;
+}
