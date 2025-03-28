@@ -9,46 +9,7 @@ const WebScraperPage = () => {
   const [loading, setLoading] = useState(false);
   const [siteURL, setSiteURL] = useState('');
 
-  const [response, setResponse] = useState<WebSiteDataDto | null>({
-    url: 'https://gihan.orizel.com/',
-    title: 'Gihan Gunarathne',
-    html_version: 'HTML5',
-    heading_levels: { h1: 2, h2: 4, h3: 11, h4: 1, h5: 6, h6: 7 },
-    have_login_form: false,
-    links: {
-      external: [
-        'https://www.linkedin.com/in/chamara95/',
-        'https://github.com/Chamara-g',
-        'https://www.facebook.com/chamara.eng/',
-        'https://www.npmjs.com/package/rc-geographic',
-        'https://github.com/Chamara-g/rc-geographic',
-        'https://packagephobia.com/result?p=rc-geographic',
-        'https://npm-stat.com/charts.html?package=rc-geographic',
-        'https://snyk.io/test/npm/rc-geographic',
-        'https://planner.bueno.com/',
-        'https://autorizado.com/',
-        'https://test.bueno.com/',
-        'https://resortgetaway.com/',
-        'https://advisor.resortgetaway.com/',
-        'https://ieeexplore.ieee.org/Xplore/home.jsp',
-        'https://ieeexplore.ieee.org/document/9185336/',
-        'https://medium.com/@chamara95.eng',
-        'https://medium.com/@chamara95.eng/neural-network-example-using-fashion-mnist-dataset-c19b48c86cf1',
-        'https://medium.com/@chamara95.eng/how-to-install-apache-tomcat-web-server-on-your-laptop-and-run-b83fc4b0424b',
-      ],
-      inaccessible: [
-        'https://test.bueno.com/',
-        'https://planner.bueno.com/',
-        'https://autorizado.com/',
-        'https://www.linkedin.com/in/chamara95/',
-        'https://ieeexplore.ieee.org/Xplore/home.jsp',
-        'https://ieeexplore.ieee.org/document/9185336/',
-        'https://resortgetaway.com/',
-        'https://advisor.resortgetaway.com/',
-      ],
-      internal: ['https://gihan.orizel.com/pdf/gihan_gunarathne.pdf', 'https://gihan.orizel.com/portfolio.html'],
-    },
-  });
+  const [response, setResponse] = useState<WebSiteDataDto | null>(null);
 
   const onClickScraperButtonClick = () => {
     if (siteURL != '') {
@@ -57,12 +18,9 @@ const WebScraperPage = () => {
 
       scraperAPI({ siteURL }).then((data) => {
         try {
-          if (data?.status) {
-            if (data?.status === 200) {
-              successSubmission(data);
-            } else {
-              failSubmission('Please try again later!');
-            }
+          if (data?.url) {
+            console.log(data);
+            successSubmission(data);
           } else {
             failSubmission('Please try again later!');
           }

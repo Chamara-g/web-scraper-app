@@ -9,7 +9,6 @@ export const scraperAPI = async ({ siteURL }: any) => {
         'Content-Type': 'application/json',
       },
     });
-
     return data;
   } catch (error: any) {
     if (error.response) {
