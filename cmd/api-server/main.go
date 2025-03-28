@@ -1,9 +1,7 @@
 package main
 
 import (
-	"log/slog"
 	"net/http"
-	"os"
 
 	"github.com/gihanc.dev/web-scraper-app/internal/logger"
 	"github.com/gihanc.dev/web-scraper-app/internal/router"
@@ -29,16 +27,14 @@ func corsMiddleware(next http.Handler) http.Handler {
 }
 
 func main() {
-	log := slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{AddSource: true}))
 
 	router := router.InitializeRoutes()
 	router.Use(corsMiddleware)
 
-	wrappedRouter := logger.AddLoggerMid(log, logger.LoggerMid(router))
+	logger.Logger.Info("Server starting on port 8080", "version", "1.0")
 
-	log.Info("server starting on port 8080")
-
-	if err := http.ListenAndServe(":8080", wrappedRouter); err != nil {
-		log.Error("Failed to start server: ", err)
+	if err := http.ListenAndServe(":8080", router); err != nil {
+		
+		logger.Logger.Error(err.Error(), "error", "response")
 	}
 }

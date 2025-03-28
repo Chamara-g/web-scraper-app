@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/gihanc.dev/web-scraper-app/internal/middleware"
 	"github.com/gihanc.dev/web-scraper-app/internal/services"
 	"github.com/gihanc.dev/web-scraper-app/internal/utils"
 )
@@ -12,7 +13,8 @@ func GetWebHTMLByURL(w http.ResponseWriter, r *http.Request) {
 
 	url := r.URL.Query().Get("url")
 	if url == "" || !utils.IsValidURL(url) {
-		http.Error(w, "Invalid URL", http.StatusBadRequest)
+		middleware.WriteErrorResponse(w, http.StatusBadRequest, "Invalid URL")
+		
 		return
 	}
 	
