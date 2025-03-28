@@ -20,6 +20,8 @@ const WebScraperPage = () => {
         try {
           if (data?.url) {
             successSubmission(data);
+          } else {
+            setLoading(false);
           }
         } catch (error) {
           failSubmission('Please try again later!');

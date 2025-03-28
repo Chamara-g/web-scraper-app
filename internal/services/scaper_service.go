@@ -93,8 +93,9 @@ func GetSiteDataByURL(url string) (*models.SiteData, error) {
 
 	// Handle errors
 	c.OnError(func(_ *colly.Response, err error) {
-
+		// TODO
 		println(err.Error())
+		// logger.Logger.Error(err.Error(), "error", "response")
 	})
 
 	err := c.Visit(url)
@@ -150,12 +151,9 @@ func ContainsLoginForm(siteURL string) bool {
 	
 	loginFormFound := false
 
-	var wg sync.WaitGroup
 	c := colly.NewCollector()
 
-	wg.Add(1)
 	c.OnHTML("form", func(e *colly.HTMLElement) {
-		defer wg.Done()
 
 		// check input field names
 		e.ForEach("input", func(i int, el *colly.HTMLElement) {
@@ -188,8 +186,6 @@ func ContainsLoginForm(siteURL string) bool {
 	})
 
 	c.Visit(siteURL)
-
-	wg.Wait()
 
 	return loginFormFound
 }
