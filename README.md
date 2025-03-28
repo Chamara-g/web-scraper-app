@@ -4,6 +4,10 @@ Go REST API and React Frontend
 
 ## Demo
 
+https://github.com/user-attachments/assets/3c183492-ca78-454a-b7d9-f23f1c1279fd
+
+
+
 ## Clone Application
 
 1.  Clone the repository (main branch)
