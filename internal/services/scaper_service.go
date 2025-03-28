@@ -93,7 +93,7 @@ func GetSiteDataByURL(url string) (*models.SiteData, error) {
 
 	// Handle errors
 	c.OnError(func(_ *colly.Response, err error) {
-		// TODO
+
 		println(err.Error())
 	})
 

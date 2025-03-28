@@ -19,10 +19,7 @@ const WebScraperPage = () => {
       scraperAPI({ siteURL }).then((data) => {
         try {
           if (data?.url) {
-            console.log(data);
             successSubmission(data);
-          } else {
-            failSubmission('Please try again later!');
           }
         } catch (error) {
           failSubmission('Please try again later!');

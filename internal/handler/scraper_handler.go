@@ -20,7 +20,8 @@ func GetWebHTMLByURL(w http.ResponseWriter, r *http.Request) {
 	
 	siteData, err := services.GetSiteDataByURL(url)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+	
+		middleware.WriteErrorResponse(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 

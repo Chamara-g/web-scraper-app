@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { openNotification } from '../meta/globalToaster';
 
 export const scraperAPI = async ({ siteURL }: any) => {
   try {
@@ -12,7 +13,9 @@ export const scraperAPI = async ({ siteURL }: any) => {
     return data;
   } catch (error: any) {
     if (error.response) {
-      return error.response.data; // => the response payload
+      openNotification({ message: error.response?.data?.error });
+
+      // return error.response.data; // => the response payload
     } else {
       //console.log(error);
     }
