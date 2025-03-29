@@ -4,10 +4,12 @@ import (
 	"errors"
 	"net/http"
 	"net/url"
+	"os"
 	"regexp"
 	"strings"
 	"sync"
 
+	"github.com/gihanc.dev/web-scraper-app/backend/internal/logger"
 	"github.com/gihanc.dev/web-scraper-app/backend/internal/models"
 	"github.com/gihanc.dev/web-scraper-app/backend/internal/utils"
 	"github.com/gocolly/colly"
@@ -28,6 +30,16 @@ func GetSiteDataByURL(url string) (*models.SiteData, error) {
 
 	// Scrape data
 	c := colly.NewCollector()
+
+	proxy := os.Getenv("PROXY")
+	if proxy != "" {
+		proxyErr := c.SetProxy("http://username:password@proxyserver.com:port")
+		if proxyErr != nil {
+			logger.Logger.Error(proxyErr.Error(), "error", "response")
+	
+			return nil, errors.New("Invalid Proxy")
+		}	
+	}
 
 	// get HTML version
 	c.OnResponse(func(r *colly.Response) {
