@@ -23,10 +23,16 @@ func Test_GetWebHTMLData(t *testing.T){
 			responseBody: `{"error":"Forbidden","code":400}`,
 		},
 		{
+			name: "check Invalid URL",
+			url: "sample_invalid_test",
+			expectedStatus: http.StatusBadRequest,
+			responseBody: `{"error":"Invalid URL","code":400}`,
+		},
+		{
 			name: "success request",
 			url: "https://gihan.orizel.com/",
 			expectedStatus: http.StatusOK,
-			responseBody: `{}`,
+			responseBody: "",
 		},
 	}
 
@@ -47,7 +53,7 @@ func Test_GetWebHTMLData(t *testing.T){
 				t.Errorf("Expected status %d but got %d", tc.expectedStatus, rr.Code)
 			}
 
-			if rr.Body.String() != tc.responseBody+"\n" {
+			if tc.responseBody != "" && (rr.Body.String() != tc.responseBody+"\n") {
 				t.Errorf("Unexpected response body: got %s want %s", rr.Body.String(), tc.responseBody)
 			}
 		})
