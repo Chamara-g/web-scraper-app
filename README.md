@@ -85,7 +85,7 @@ docker run -p 8080:8080 go-rest-api
 docker build -t react-app .
 
 // run
-docker run -p 80:80 react-app
+docker run -p 3000:3000 react-app
 ```
 
 ## For developers
