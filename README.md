@@ -88,6 +88,13 @@ docker build -t react-app .
 docker run -p 3000:3000 react-app
 ```
 
+## Run Test cases
+
+```
+// go to backend add run below command
+go test ./...
+```
+
 ## For developers
 
 ### Branching strategy

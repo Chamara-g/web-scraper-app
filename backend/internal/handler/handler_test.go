@@ -9,29 +9,46 @@ import (
 )
 
 func Test_GetWebHTMLData(t *testing.T){
+	
 	testCases := []struct{
 		name string
+		url string
 		expectedStatus int
+		responseBody string
 	}{
 		{
-			name: "not implemented",
-			expectedStatus: http.StatusNotImplemented,
+			name: "check Forbidden request",
+			url: "https://www.stories.com/en/index.html",
+			expectedStatus: http.StatusBadRequest,
+			responseBody: `{"error":"Forbidden","code":400}`,
+		},
+		{
+			name: "success request",
+			url: "https://gihan.orizel.com/",
+			expectedStatus: http.StatusOK,
+			responseBody: `{}`,
 		},
 	}
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			
-			// Arrange
-			w := httptest.NewRecorder()
-			r := httptest.NewRequest(http.MethodPost, "/", nil)
-			
-			// Act
-			handler.GetWebHTMLByURL()(w, r)
 
-			// Assert
-			if w.Result().StatusCode != tc.expectedStatus {
-				t.Errorf("expected :%d, got: %d", tc.expectedStatus, w.Result().StatusCode)
+			req, err := http.NewRequest("GET", "/scrape?url="+tc.url, nil)
+			if err != nil {
+				t.Fatalf("Could not create request: %v", err)
+			}
+		
+			rr := httptest.NewRecorder()
+		
+			handler := http.HandlerFunc(handler.GetWebHTMLByURL)
+			handler.ServeHTTP(rr, req)
+		
+			if rr.Code != tc.expectedStatus {
+				t.Errorf("Expected status %d but got %d", tc.expectedStatus, rr.Code)
+			}
+
+			if rr.Body.String() != tc.responseBody+"\n" {
+				t.Errorf("Unexpected response body: got %s want %s", rr.Body.String(), tc.responseBody)
 			}
 		})
 	}
