@@ -22,7 +22,9 @@ git clone https://github.com/Chamara-g/web-scraper-app
  cd backend
 ```
 
-2.  Clean up and manage dependencies
+2.  Copy env-sample file and create .env file to add environment data
+
+3.  Clean up and manage dependencies
 
 ```
  go mod tidy
