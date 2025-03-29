@@ -56,6 +56,38 @@ git clone https://github.com/Chamara-g/web-scraper-app
  npm start
 ```
 
+## Dockerize APP
+
+### run both frontend and backend using compose
+
+```
+docker-compose up --build
+
+// access urls
+React App - http://localhost:3000
+Go REST API - http://localhost:8080
+```
+
+### Dockerize Go REST API
+
+```
+// build
+docker build -t go-rest-api .
+
+// run
+docker run -p 8080:8080 go-rest-api
+```
+
+### Dockerize React APP
+
+```
+// build
+docker build -t react-app .
+
+// run
+docker run -p 80:80 react-app
+```
+
 ## For developers
 
 ### Branching strategy
