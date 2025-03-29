@@ -1,4 +1,4 @@
-module github.com/gihanc.dev/web-scraper-app
+module github.com/gihanc.dev/web-scraper-app/backend
 
 go 1.24.1
 

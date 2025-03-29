@@ -3,8 +3,8 @@ package main
 import (
 	"net/http"
 
-	"github.com/gihanc.dev/web-scraper-app/internal/logger"
-	"github.com/gihanc.dev/web-scraper-app/internal/router"
+	"github.com/gihanc.dev/web-scraper-app/backend/internal/logger"
+	"github.com/gihanc.dev/web-scraper-app/backend/internal/router"
 )
 
 // CORS Middleware function to add CORS headers

@@ -8,8 +8,8 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/gihanc.dev/web-scraper-app/internal/models"
-	"github.com/gihanc.dev/web-scraper-app/internal/utils"
+	"github.com/gihanc.dev/web-scraper-app/backend/internal/models"
+	"github.com/gihanc.dev/web-scraper-app/backend/internal/utils"
 	"github.com/gocolly/colly"
 )
 

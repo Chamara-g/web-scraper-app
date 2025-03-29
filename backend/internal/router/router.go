@@ -1,7 +1,7 @@
 package router
 
 import (
-	"github.com/gihanc.dev/web-scraper-app/internal/handler"
+	"github.com/gihanc.dev/web-scraper-app/backend/internal/handler"
 	"github.com/gorilla/mux"
 )
 

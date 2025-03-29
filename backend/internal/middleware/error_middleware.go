@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/gihanc.dev/web-scraper-app/internal/errors"
-	"github.com/gihanc.dev/web-scraper-app/internal/logger"
+	"github.com/gihanc.dev/web-scraper-app/backend/internal/errors"
+	"github.com/gihanc.dev/web-scraper-app/backend/internal/logger"
 )
 
 type ErrorResponse struct {

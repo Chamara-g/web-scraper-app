@@ -5,7 +5,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/gihanc.dev/web-scraper-app/internal/handler"
+	"github.com/gihanc.dev/web-scraper-app/backend/internal/handler"
 )
 
 func Test_GetWebHTMLData(t *testing.T){
@@ -27,7 +27,7 @@ func Test_GetWebHTMLData(t *testing.T){
 			r := httptest.NewRequest(http.MethodPost, "/", nil)
 			
 			// Act
-			handler.GetWebHTMLData()(w, r)
+			handler.GetWebHTMLByURL()(w, r)
 
 			// Assert
 			if w.Result().StatusCode != tc.expectedStatus {

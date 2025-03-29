@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/gihanc.dev/web-scraper-app/internal/middleware"
-	"github.com/gihanc.dev/web-scraper-app/internal/services"
-	"github.com/gihanc.dev/web-scraper-app/internal/utils"
+	"github.com/gihanc.dev/web-scraper-app/backend/internal/middleware"
+	"github.com/gihanc.dev/web-scraper-app/backend/internal/services"
+	"github.com/gihanc.dev/web-scraper-app/backend/internal/utils"
 )
 
 func GetWebHTMLByURL(w http.ResponseWriter, r *http.Request) {

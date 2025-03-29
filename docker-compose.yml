@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  go-api:
+    build:
+      context: ./backend
+    ports:
+      - '8080:8080'
+    networks:
+      - web-scraper-network
+
+  react-app:
+    build:
+      context: ./frontend
+    ports:
+      - '3000:3000'
+    networks:
+      - web-scraper-network
+
+networks:
+  web-scraper-network:
+    driver: bridge

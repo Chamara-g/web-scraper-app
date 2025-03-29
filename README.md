@@ -6,8 +6,6 @@ Go REST API and React Frontend
 
 https://github.com/user-attachments/assets/3c183492-ca78-454a-b7d9-f23f1c1279fd
 
-
-
 ## Clone Application
 
 1.  Clone the repository (main branch)
@@ -18,13 +16,19 @@ git clone https://github.com/Chamara-g/web-scraper-app
 
 ## Run REST API
 
-1.  Clean up and manage dependencies
+1.  Go to backend directory
+
+```
+ cd backend
+```
+
+2.  Clean up and manage dependencies
 
 ```
  go mod tidy
 ```
 
-2. Run go Backend
+3. Run go Backend
 
 ```
  go run cmd/api-server/main.go
