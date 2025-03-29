@@ -2,9 +2,11 @@ package main
 
 import (
 	"net/http"
+	"os"
 
 	"github.com/gihanc.dev/web-scraper-app/backend/internal/logger"
 	"github.com/gihanc.dev/web-scraper-app/backend/internal/router"
+	"github.com/joho/godotenv"
 )
 
 // CORS Middleware function to add CORS headers
@@ -28,12 +30,23 @@ func corsMiddleware(next http.Handler) http.Handler {
 
 func main() {
 
+	err := godotenv.Load()
+	if err != nil {
+
+		logger.Logger.Info("Warning: No .env file found, using default port 8080", "version", "1.0")
+	}
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
 	router := router.InitializeRoutes()
 	router.Use(corsMiddleware)
 
-	logger.Logger.Info("Server starting on port 8080", "version", "1.0")
+	logger.Logger.Info("Server starting on port "+port, "version", "1.0")
 
-	if err := http.ListenAndServe(":8080", router); err != nil {
+	if err := http.ListenAndServe(":"+port, router); err != nil {
 		
 		logger.Logger.Error(err.Error(), "error", "response")
 	}
