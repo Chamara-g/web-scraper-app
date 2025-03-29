@@ -33,7 +33,7 @@ func GetSiteDataByURL(url string) (*models.SiteData, error) {
 
 	proxy := os.Getenv("PROXY")
 	if proxy != "" {
-		proxyErr := c.SetProxy("http://username:password@proxyserver.com:port")
+		proxyErr := c.SetProxy(proxy)
 		if proxyErr != nil {
 			logger.Logger.Error(proxyErr.Error(), "error", "response")
 	
