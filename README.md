@@ -24,6 +24,13 @@ git clone https://github.com/Chamara-g/web-scraper-app
 
 2.  Copy env-sample file and create .env file to add environment data
 
+```
+PORT is backend expose port
+
+PROXY(Optional) Proxy use to minimize the site blocking
+sample format - "http://username:password@proxyserver.com:port"
+```
+
 3.  Clean up and manage dependencies
 
 ```
