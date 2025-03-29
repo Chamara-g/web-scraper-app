@@ -22,6 +22,10 @@ func GetSiteDataByURL(url string) (*models.SiteData, error) {
 		return nil, errors.New("URL not found")
 	}
 
+	if !utils.IsValidURL(url) {
+		return nil, errors.New("Invalid URL")
+	}
+
 	// Scrape data
 	c := colly.NewCollector()
 
